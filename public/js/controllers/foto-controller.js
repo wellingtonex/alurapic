@@ -1,4 +1,4 @@
-angular.module('alurapic').controller('FotoController', function($scope) {
+angular.module('alurapic').controller('FotoController', function($scope, $http) {
 
     $scope.foto = {};
 
