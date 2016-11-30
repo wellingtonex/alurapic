@@ -24,4 +24,13 @@ angular
 
         return ddo;
 
+    }).directive('meuBotaoPerigo', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.scope = {
+            nome: '@', //passa uma copia de valor
+            acao: '&' //quando esto passando uma expressao, passa uma referencia
+        };
+        ddo.template = '<button class="btn btn-danger btn-block" ng-click="acao(foto)">{{nome}}</button>';
+        return ddo;
     });
