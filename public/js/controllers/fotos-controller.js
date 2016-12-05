@@ -1,10 +1,8 @@
-angular.module('alurapic').controller('FotosController', function($scope, $http, $resource) {
+angular.module('alurapic').controller('FotosController', function($scope, fotoResource) {
 
   $scope.fotos = [];
   $scope.filtro = '';
   $scope.mensagem = '';
-
-  var fotoResource = $resource('v1/fotos/:fotoId');
 
   fotoResource.query(function(fotos) {
     $scope.fotos = fotos;

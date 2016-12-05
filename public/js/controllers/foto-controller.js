@@ -1,22 +1,14 @@
-angular.module('alurapic').controller('FotoController', function($scope, $http, $resource, $routeParams) {
+angular.module('alurapic').controller('FotoController', function($scope, $http, fotoResource, $routeParams) {
 
     $scope.foto = {};
     $scope.mensagem = '';
 
-    var fotoResource = $resource('v1/fotos/:fotoId', null, {
-        update: {
-            method: 'PUT'
-        }
-    });
-
     if($routeParams.fotoId) {
-        $http.get('v1/fotos/' + $routeParams.fotoId)
-            .success(function(foto) {
-            $scope.foto = foto;
-        })
-        .error(function(error) {
-            console.log(error);
-            console.log('Não foi possivel obter a foto.');
+        fotoResource.get({fotoId: $routeParams.fotoId}, function(foto) {
+            $scope.foto = foto; 
+        }, function(erro) {
+            console.log(erro);
+            $scope.mensagem = 'Não foi possível obter a foto'
         });
     }
 
@@ -31,17 +23,15 @@ angular.module('alurapic').controller('FotoController', function($scope, $http, 
                     console.log(error);
                     $scope.mensagem = 'Não foi alterar a foto ' + $scope.foto.titulo + '.';
                 });
-                
+
             } else {
-                $http.post('v1/fotos', $scope.foto)
-                    .success(function() {
-                        $scope.foto = {};
-                        $scope.mensagem = 'Foto incluida com sucesso.';
-                    })
-                    .error(function(error){
-                        console.log(error);
-                        $scope.mensagem = 'Não foi possivel incluir a foto.';
-                    });
+                fotoResource.save($scope.foto, function() {
+                    $scope.foto = {};
+                    $scope.mensagem = 'Foto cadastrada com sucesso';
+                }, function(erro) {
+                    console.log(erro);
+                    $scope.mensagem = 'Não foi possível cadastrar a foto';
+                });
             }
         }
     };

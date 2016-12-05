@@ -1,5 +1,5 @@
 angular
-    .module('alurapic', ['minhasDiretivas', 'ngAnimate', 'ngRoute', 'ngResource'])
+    .module('alurapic', ['minhasDiretivas', 'ngAnimate', 'ngRoute', 'fotoService'])
     .config(function($routeProvider, $locationProvider) {
 
         $locationProvider.html5Mode(true);
