@@ -7,15 +7,17 @@ angular
                 method: 'PUT'
             }
         });
-    }).factory('cadastroDeFotos', function(fotoResource, $q) {
+    }).factory('cadastroDeFotos', function(fotoResource, $q, $rootScope) {
 
         var servico = {};
+        var evento = 'fotoCadastrada';
 
         servico.cadastrar = function (foto) {
             return $q(function(resolve, reject) {
                 if(foto._id) {
 
                     fotoResource.update({fotoId:foto._id}, foto, function() {
+                        $rootScope.$broadcast(evento);
                         resolve({
                             mensagem: 'Foto ' + foto.titulo + ' atualizada com sucesso.',
                             inclusao: false                            
@@ -28,6 +30,7 @@ angular
                     });
                 } else {
                     fotoResource.save(foto, function() {
+                        $rootScope.$broadcast(evento);
                         resolve({
                             mensagem: 'Foto ' + foto.titulo + ' incluida com sucesso.',
                             inclusao:true
