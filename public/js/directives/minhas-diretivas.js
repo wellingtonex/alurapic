@@ -33,4 +33,21 @@ angular
         };
         ddo.template = '<button class="btn btn-danger btn-block" ng-click="acao(foto)">{{nome}}</button>';
         return ddo;
+    }).directive('meuFocus', function() {
+        var ddo = {};
+        ddo.restrict = "A";
+        ddo.scope = {
+            focado : '='
+        };
+
+        ddo.link = function(scope, element) {
+            scope.$watch('focado', function() {
+                if (scope.focado) {
+                    element[0].focus();
+                    scope.focado = false;                   
+                } 
+            });
+        };
+
+        return ddo;
     });
