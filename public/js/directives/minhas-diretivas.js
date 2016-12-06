@@ -1,5 +1,5 @@
 angular
-    .module('minhasDiretivas', [])
+    .module('minhasDiretivas', ['meusServicos'])
     .directive('meuPainel', function() {
         var ddo = {};
         ddo.restict = "AE";
@@ -43,5 +43,17 @@ angular
             });
         };
 
+        return ddo;
+    }).directive('meusTitulos', function() {
+        var ddo = {};
+        ddo.restrict = 'E';
+        ddo.template = '<ul><li ng-repeat="titulo in titulos">{{titulo}}</li></ul>';
+        ddo.controller = function($scope, fotoResource) {
+            fotoResource.query(function(fotos) {
+                $scope.titulos = fotos.map(function(foto) {
+                    return foto.titulo;
+                });    
+            });
+        };
         return ddo;
     });
