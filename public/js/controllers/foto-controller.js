@@ -22,7 +22,7 @@ angular.module('alurapic').controller('FotoController', function($scope, cadastr
                 if (dados.inclusao) {
                     $scope.foto = {};
                 }
-                $scope.focado = true;
+                $scope.$broadcast('fotoCadastrada');
             })
             .catch(function (dados) {
                 $scope.mensagem = dados.mensagem;
